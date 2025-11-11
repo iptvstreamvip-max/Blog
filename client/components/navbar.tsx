@@ -26,7 +26,7 @@ export default function NavBar() {
         <div className="flex items-center gap-4">
           <NavbarButton
             href="https://api.whatsapp.com/send/?phone=923070494471&text=need_iptv_restream&type=phone_number&app_absent=0"
-            variant="primary"
+            variant="default"
           >
             Contact Now!
           </NavbarButton>
@@ -60,7 +60,7 @@ export default function NavBar() {
           <div className="flex w-full flex-col gap-4">
             <NavbarButton
               onClick={() => setIsMobileMenuOpen(false)}
-              variant="primary"
+              variant="default"
               className="w-full"
               href="https://api.whatsapp.com/send/?phone=923070494471&text=need_iptv_restream&type=phone_number&app_absent=0"
             >
