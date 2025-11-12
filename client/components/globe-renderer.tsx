@@ -1,19 +1,46 @@
 "use client";
-import React from "react";
 import { motion } from "motion/react";
 import dynamic from "next/dynamic";
 import { useTheme } from "next-themes";
+import { memo, ReactNode, useEffect, useRef, useState } from "react";
+import { Skeleton } from "./ui/skeleton";
 
 const World = dynamic(
   () => import("@/components/ui/globe").then((m) => m.World),
   {
     ssr: false,
+    loading: () => (
+      <div className="h-full w-full flex items-center justify-center">
+        <Skeleton className="w-9/12 h-9/12 rounded-full" />
+      </div>
+    ),
   }
 );
 
-export function GlobeRenderer() {
-    const { systemTheme, theme } = useTheme();
-    const currentTheme = theme === "system" ? systemTheme : theme;
+function GlobeRenderer({children}: {children: ReactNode}) {
+  const [shouldLoad, setShouldLoad] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '200px' } // Start loading 200px before visible
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  const { systemTheme, theme } = useTheme();
+  const currentTheme = theme === "system" ? systemTheme : theme;
   const globeConfig = {
     pointSize: 4,
     globeColor: `${currentTheme === "dark" ? "#062056" : "#0c40ab"}`,
@@ -401,7 +428,8 @@ export function GlobeRenderer() {
   ];
 
   return (
-    <div className="flex flex-row items-center justify-center h-screen md:h-auto bg-background relative w-full">
+    <div ref={ref} className="flex flex-row items-center justify-center h-screen md:h-auto bg-background relative w-full">
+      {shouldLoad ? (
       <div className="max-w-7xl mx-auto w-full relative overflow-hidden h-full md:h-160 grid grid-cols-1 lg:grid-cols-2 items-center justify-center">
         <motion.div
           initial={{
@@ -417,18 +445,18 @@ export function GlobeRenderer() {
           }}
           className="div"
         >
-          <h2 className="text-center text-xl md:text-4xl font-bold text-foreground">
-            We provide best services worldwide
-          </h2>
-          <p className="text-center text-base md:text-lg font-normal text-muted-foreground max-w-md mt-2 mx-auto">
-            How is our we are Best IPTV Service Provier In the World? We provides you access to a wide range of live television channels, on-demand movies and TV shows, and other content, There are many IPTV subscription services available online, and they vary in price, features, and quality. Some IPTV subscriptions are legitimate and offer high-quality content, while others may be illegal and offer pirated content.
-          </p>
+          {children}
         </motion.div>
-        <div className="relative w-full h-72 md:h-full z-10">
+        <div className="relative w-full h-96 md:h-full">
           <World data={sampleArcs} globeConfig={globeConfig} />
-          <div className="absolute w-full bottom-0 inset-x-0 h-40 bg-linear-to-b pointer-events-none select-none from-transparent to-background z-40" />
+          {/* <div className="absolute w-full bottom-0 inset-x-0 h-40 bg-linear-to-b pointer-events-none select-none from-transparent to-background z-40" /> */}
         </div>
       </div>
+      ) : (
+        <div className="h-full w-full bg-gray-100 animate-pulse" />
+      )}
     </div>
   );
 }
+
+export default memo(GlobeRenderer)
