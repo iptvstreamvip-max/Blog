@@ -14,7 +14,22 @@ const nextConfig: NextConfig = {
         hostname: 'jolly-flame-2138b8d190.media.strapiapp.com',
       },
     ],
-  }
+    // Optimize image loading
+    formats: ['image/avif', 'image/webp'],
+    dangerouslyAllowSVG: true,
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+  },
+  // Enable experimental features
+  experimental: {
+    optimizePackageImports: ['@react-three/fiber', '@react-three/drei'],
+  },
+  // Configure Turbopack instead of webpack
+  turbopack: {
+    resolveAlias: {
+      canvas: './empty-module.ts',
+    },
+  },
 };
 
 export default nextConfig;

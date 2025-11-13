@@ -23,6 +23,58 @@ export const navItems = [
     link: "/contact",
   },
 ];
+export const PRICING_CARDS = [
+  {
+    name: "Starter Pack",
+    desc: "50 Connections",
+    price: 99,
+    features: [
+      "50 Connections",
+      "9500+ Channels",
+      "International Channels",
+      "M3 U8 Playlis",
+      "SD /HD /FHD /4K",
+    ],
+  },
+  {
+    name: "Combo Pack",
+    desc: "100 Connections",
+    price: 190,
+    features: [
+      "100 Connections",
+      "9500+ Channels",
+      "International Channels",
+      "M3 U8 Playlis",
+      "SD /HD /FHD /4K",
+    ],
+  },
+  {
+    name: "Premium Pack",
+    desc: "200 Connections",
+    price: 370,
+    features: [
+      "200 Connections",
+      "9500+ Channels",
+      "International Channels",
+      "M3 U8 Playlis",
+      "SD /HD /FHD /4K",
+    ],
+  },
+  {
+    name: "Enterprise Pack",
+    desc: "500 Connections",
+    price: 700,
+    features: [
+      "500 Connections",
+      "9500+ Channels",
+      "International Channels",
+      "M3 U8 Playlis",
+      "SD /HD /FHD /4K",
+    ],
+  },
+];
+export const WHATSAPP_LINK = "https://api.whatsapp.com/send/?phone=923070494471&text=need_iptv_restream&type=phone_number&app_absent=0";
+export const GLOBE_COLORS = ["#06b6d4", "#3b82f6", "#6366f1"];
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { useTheme } from "next-themes";
 import { memo, ReactNode, useEffect, useRef, useState } from "react";
 import { Skeleton } from "./ui/skeleton";
+import { GLOBE_COLORS } from "@/lib/utils";
 
 const World = dynamic(
   () => import("@/components/ui/globe").then((m) => m.World),
@@ -20,27 +21,11 @@ const World = dynamic(
 function GlobeRenderer({children}: {children: ReactNode}) {
   const [shouldLoad, setShouldLoad] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setShouldLoad(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: '200px' } // Start loading 200px before visible
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
   const { systemTheme, theme } = useTheme();
   const currentTheme = theme === "system" ? systemTheme : theme;
+
+
+// Optimize theme config to be memoized
   const globeConfig = {
     pointSize: 4,
     globeColor: `${currentTheme === "dark" ? "#062056" : "#0c40ab"}`,
@@ -63,8 +48,64 @@ function GlobeRenderer({children}: {children: ReactNode}) {
     autoRotate: true,
     autoRotateSpeed: 0.5,
   };
-  const colors = ["#06b6d4", "#3b82f6", "#6366f1"];
-  const sampleArcs = [
+  const sampleArcs = getSampleArcs(GLOBE_COLORS);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '200px' } // Start loading 200px before visible
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+
+  return (
+    <div ref={ref} className="flex flex-row items-center justify-center h-screen md:h-auto bg-background relative w-full">
+      {shouldLoad ? (
+      <div className="max-w-7xl mx-auto w-full relative overflow-hidden h-full md:h-160 grid grid-cols-1 lg:grid-cols-2 items-center justify-center">
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 20,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 1,
+          }}
+          className="div"
+        >
+          {children}
+        </motion.div>
+        <div className="relative w-full h-96 md:h-full">
+          {shouldLoad && <World data={sampleArcs} globeConfig={globeConfig} />}
+          {/* <div className="absolute w-full bottom-0 inset-x-0 h-40 bg-linear-to-b pointer-events-none select-none from-transparent to-background z-40" /> */}
+        </div>
+      </div>
+      ) : (
+        <div className="h-full w-full bg-gray-100 animate-pulse" />
+      )}
+    </div>
+  );
+}
+
+export default memo(GlobeRenderer);
+
+// Extract arcs generation outside component
+function getSampleArcs(colors: string[]) {
+  return [
     {
       order: 1,
       startLat: -19.885592,
@@ -425,38 +466,5 @@ function GlobeRenderer({children}: {children: ReactNode}) {
       arcAlt: 0.3,
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
-  ];
-
-  return (
-    <div ref={ref} className="flex flex-row items-center justify-center h-screen md:h-auto bg-background relative w-full">
-      {shouldLoad ? (
-      <div className="max-w-7xl mx-auto w-full relative overflow-hidden h-full md:h-160 grid grid-cols-1 lg:grid-cols-2 items-center justify-center">
-        <motion.div
-          initial={{
-            opacity: 0,
-            y: 20,
-          }}
-          animate={{
-            opacity: 1,
-            y: 0,
-          }}
-          transition={{
-            duration: 1,
-          }}
-          className="div"
-        >
-          {children}
-        </motion.div>
-        <div className="relative w-full h-96 md:h-full">
-          <World data={sampleArcs} globeConfig={globeConfig} />
-          {/* <div className="absolute w-full bottom-0 inset-x-0 h-40 bg-linear-to-b pointer-events-none select-none from-transparent to-background z-40" /> */}
-        </div>
-      </div>
-      ) : (
-        <div className="h-full w-full bg-gray-100 animate-pulse" />
-      )}
-    </div>
-  );
+  ];;
 }
-
-export default memo(GlobeRenderer)
