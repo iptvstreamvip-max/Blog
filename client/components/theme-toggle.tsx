@@ -19,11 +19,11 @@ export default function ThemeToggle() {
   }
 
   return (
-    <span className="flex items-center gap-1 border border-border px-2 py-1 rounded-full">
+    <span className="flex items-center justify-center gap-1 border border-border rounded-full p-1">
       <Button
         variant={theme === "dark" ? "default" : "ghost"}
         onClick={() => setTheme("dark")}
-        className="rounded-full size-6"
+        className="rounded-full size-6 w-8 h-8"
         aria-label="Dark"
       >
         <Moon />
@@ -31,7 +31,7 @@ export default function ThemeToggle() {
       <Button
         variant={theme === "system" ? "default" : "ghost"}
         onClick={() => setTheme("system")}
-        className="rounded-full size-6"
+        className="rounded-full size-6 w-8 h-8"
         aria-label="System"
       >
         <Monitor />
@@ -39,7 +39,7 @@ export default function ThemeToggle() {
       <Button
         variant={theme === "light" ? "default" : "ghost"}
         onClick={() => setTheme("light")}
-        className="rounded-full size-6"
+        className="rounded-full size-6 w-8 h-8"
         aria-label="Light"
       >
         <Sun />

@@ -11,16 +11,20 @@ export const navItems = [
     link: "/",
   },
   {
-    name: "Blog",
-    link: "/blogs/1",
+    name: "Pricing",
+    link: "/#pricing",
   },
   {
     name: "About",
-    link: "/about",
+    link: "/#about",
   },
   {
     name: "Contact",
-    link: "/contact",
+    link: "/#contact",
+  },
+  {
+    name: "Blog",
+    link: "/blogs/1",
   },
 ];
 export const PRICING_CARDS = [

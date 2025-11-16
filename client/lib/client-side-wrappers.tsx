@@ -19,7 +19,7 @@ export function ThemeToggleWrapper({
   ...props
 }: React.ComponentProps<"div">) {
   return (
-    <div className={cn("h-9 w-24", className)} {...props}>
+    <div className={cn("w-max", className)} {...props}>
       <ThemeToggle />
     </div>
   );
