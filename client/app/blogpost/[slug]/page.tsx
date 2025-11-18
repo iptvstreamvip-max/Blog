@@ -6,6 +6,7 @@ import { cache } from "react";
 import { Metadata } from "next";
 import BackButton from "@/components/back-button";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import PricingSection from "@/components/sections/pricing";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -100,6 +101,7 @@ export default async function BlogPostPage({ params }: Props) {
             </div>
           </article>
         </div>
+        <PricingSection />
       </div>
       {/* {article?.dynamic_zone && (
         <DynamicZoneManager

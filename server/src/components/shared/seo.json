@@ -20,7 +20,15 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "keywords": {
+      "type": "text",
+      "default": "keywords",
+      "required": true,
+      "regex": "^[a-zA-Z0-9\\s-]+(\\s*,\\s*[a-zA-Z0-9\\s-]+)*$"
     }
   }
 }

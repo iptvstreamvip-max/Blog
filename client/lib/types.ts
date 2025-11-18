@@ -18,6 +18,7 @@ export interface Global {
     id: number;
     metaTitle: string;
     metaDescription: string;
+    keywords: string;
     shareImage: {
       id: number;
       documentId: string;

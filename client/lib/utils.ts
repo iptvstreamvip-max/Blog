@@ -87,7 +87,7 @@ export async function getArticles(page: number = 1): Promise<{
 }> {
   try {
     const response = await fetch(
-      `${STRAPI_URL}/api/articles?&populate[0]=cover&populate[1]=category&populate[3]=author.avatar&sort=createdAt:desc&pagination[pageSize]=1&pagination[page]=${page}`,
+      `${STRAPI_URL}/api/articles?&populate[0]=cover&populate[1]=category&populate[3]=author.avatar&sort=createdAt:desc&pagination[pageSize]=9&pagination[page]=${page}`,
       {
         cache: "force-cache",
         next: {

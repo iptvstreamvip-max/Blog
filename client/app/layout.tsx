@@ -6,6 +6,7 @@ import { NavBarWrapper } from "@/lib/client-side-wrappers";
 import Footer from "@/components/footer";
 import { getGlobalData, getStrapiMedia } from "@/lib/utils";
 import NextTopLoader from "nextjs-toploader";
+import { Analytics } from "@vercel/analytics/next"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +28,7 @@ export async function generateMetadata(): Promise<Metadata> {
       template: `%s | ${seo.metaTitle}`,
     },
     description: seo.metaDescription,
-    // keywords: seo?.keywords,
+    keywords: seo?.keywords,
     icons: {
       icon: `${faviconUrl}`,
       shortcut: `${faviconUrl}`,
@@ -67,6 +68,7 @@ export default function RootLayout({
           <main>{children}</main>
           <Footer />
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
