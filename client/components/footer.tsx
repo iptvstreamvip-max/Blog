@@ -2,6 +2,7 @@ import { ThemeToggleWrapper } from "@/lib/client-side-wrappers";
 import Link from "next/link";
 import { navItems } from "@/lib/utils";
 import Image from "next/image";
+import { Shield, Users, Zap } from "lucide-react";
 
 const LinkSection = ({
   links,
@@ -12,9 +13,10 @@ const LinkSection = ({
     {links.map((link) => (
       <Link
         key={link.name}
-        className="transition-colors hover:text-muted-foreground text-foreground text-xs sm:text-sm"
+        className="text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
         href={`${link.link}`}
       >
+        <span className="w-0 h-0.5 bg-primary transition-all group-hover:w-4"></span>
         {link.name}
       </Link>
     ))}
@@ -35,11 +37,14 @@ const socialmediaLinks = [
 
 export default function Footer() {
   return (
-    <footer className="relative">
-      <div className="border-t border-border px-8 pt-20 pb-32 relative bg-background">
-        <div className="max-w-7xl mx-auto text-sm text-muted-foreground flex sm:flex-row flex-col justify-between items-start ">
-          <div>
-            <Link href={"/"} className="mr-4 md:flex items-center space-x-2 mb-4 relative">
+    <footer className="relative border-t">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-12 mb-12 text-sm text-muted-foreground">
+          <div className="lg:col-span-3 md:col-span-2">
+            <Link
+              href={"/"}
+              className="mr-4 md:flex items-center space-x-2 mb-4 relative"
+            >
               <Image src={"/logo-dark.png"} alt="Logo" width={30} height={30} />
               <span className="font-medium text-foreground">Startup</span>
             </Link>
@@ -51,51 +56,45 @@ export default function Footer() {
             <div className="mt-10">
               Designed and Developed by{" "}
               <Link
-                className="text-foreground underline"
+                className="text-primary hover:underline"
                 href="https://aceternity.com"
               >
                 Aceternity
               </Link>{" "}
               &{" "}
-              <Link
-                className="text-foreground underline"
-                href="https://strapi.io"
-              >
+              <Link className="text-primary hover:underline" href="https://strapi.io">
                 Strapi
               </Link>
             </div>
             <div className="mt-2">
               built with{" "}
-              <Link
-                className="text-foreground underline"
-                href="https://strapi.io"
-              >
+              <Link className="text-primary hover:underline" href="https://strapi.io">
                 Strapi
               </Link>
               ,{" "}
               <Link
-                className="text-foreground underline"
+                className="text-primary hover:underline"
                 href="https://nextjs.org"
               >
                 Next.js
               </Link>
               ,{" "}
               <Link
-                className="text-foreground underline"
+                className="text-primary hover:underline"
                 href="https://tailwindcss.com"
               >
                 Tailwind CSS
               </Link>
               ,{" "}
               <Link
-                className="text-foreground underline"
+                className="text-primary hover:underline"
                 href="https://framer.com/motion"
               >
                 Motion Animation Lib
               </Link>
               , and{" "}
               <Link
-                className="text-foreground underline"
+                className="text-primary hover:underline"
                 href="https://ui.aceternity.com"
               >
                 Aceternity UI
@@ -106,6 +105,27 @@ export default function Footer() {
             <LinkSection links={navItems} />
             <LinkSection links={socialmediaLinks} />
             <ThemeToggleWrapper className="col-span-2 justify-self-center" />
+          </div>
+        </div>
+        <div className="py-8 mt-8 border-t">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-sm text-muted-foreground text-center md:text-left">
+              © {new Date().getFullYear()} IPTV Stream. All rights reserved.
+            </p>
+            <div className="flex items-center gap-6 text-sm text-muted-foreground">
+              <span className="flex items-center gap-2">
+                <Shield className="w-4 h-4 text-primary" />
+                Secure Payment
+              </span>
+              <span className="flex items-center gap-2">
+                <Zap className="w-4 h-4 text-primary" />
+                99.9% Uptime
+              </span>
+              <span className="flex items-center gap-2">
+                <Users className="w-4 h-4 text-primary" />
+                24/7 Support
+              </span>
+            </div>
           </div>
         </div>
       </div>

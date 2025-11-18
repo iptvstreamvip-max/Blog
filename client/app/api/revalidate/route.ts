@@ -23,16 +23,16 @@ export async function POST(request: NextRequest) {
       if (entry?.slug) {
         revalidatePath(`/blog/${entry.slug}`);
         revalidateTag(`article-${entry.slug}`, "max");
-        revalidateTag(`articles`, "max");
       }
+      revalidateTag(`articles`, "max");
     }
 
     if (model === "category") {
       if (entry?.slug) {
         revalidatePath(`/category/${entry.slug}`);
         revalidateTag(`category-${entry.slug}`, "max");
-        revalidateTag(`categories`, "max");
       }
+      revalidateTag(`categories`, "max");
     }
 
     return NextResponse.json({

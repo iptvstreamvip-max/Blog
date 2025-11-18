@@ -82,6 +82,7 @@ export default async function BlogPostPage({ params }: Props) {
                 <div className="relative rounded-full mx-auto w-8 h-8">
                   <StrapiImage
                     image={article.author.avatar}
+                    alt="Avatar"
                     className="rounded-full"
                   />
                 </div>
@@ -89,7 +90,7 @@ export default async function BlogPostPage({ params }: Props) {
                   {article.author.name}
                 </p>
               </div>
-              <div className="h-5 rounded-lg w-0.5 bg-neutral-700" />
+              <div className="h-5 rounded-lg w-0.5 bg-border" />
               <time
                 dateTime={article.publishedAt}
                 className="flex items-center text-base "
@@ -101,14 +102,8 @@ export default async function BlogPostPage({ params }: Props) {
             </div>
           </article>
         </div>
-        <PricingSection />
       </div>
-      {/* {article?.dynamic_zone && (
-        <DynamicZoneManager
-          dynamicZone={article?.dynamic_zone}
-          locale={locale}
-        />
-      )} */}
+      <PricingSection />
     </div>
   );
 }
