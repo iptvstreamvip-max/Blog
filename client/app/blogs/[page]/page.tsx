@@ -14,18 +14,30 @@ import {
 } from "@/components/ui/empty";
 import PaginationBlock from "@/components/pagination-block";
 import { Badge } from "@/components/ui/badge";
+import { cache } from "react";
+import { Metadata } from "next";
 
 type Props = {
   params: Promise<{ page: number }>;
 };
 
+const getAllArticles = cache(getArticles);
+
 export async function generateStaticParams() {
-  return [];
+  const { meta } = await getAllArticles(1);
+  const totalPages = meta.pagination.pageCount;
+  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+  return pages.map((page) => ({ page: page.toString() }));
 }
+
+export const metadata: Metadata = {
+  title: "Blogs",
+  description: "Read the latest articles and updates.",
+};
 
 export default async function BlogsPage({ params }: Props) {
   const page = (await params).page;
-  const { articles, meta } = await getArticles(page);
+  const { articles, meta } = await getAllArticles(page);
   return (
     <div className="m-8 lg:m-16">
       <BackButton />
@@ -47,7 +59,7 @@ export default async function BlogsPage({ params }: Props) {
             href={`/blogpost/${article.slug}`}
             className="group"
           >
-            <Card className="pt-0 h-full rounded-3xl hover:bg-muted hover:scale-[1.02] transition duration-200">
+            <Card className="pt-0 h-full rounded-3xl hover:border-primary hover:bg-muted hover:scale-[1.02] transition duration-200">
               <CardContent className="px-0">
                 <AspectRatio ratio={16 / 9} className="rounded-3xl">
                   {article?.cover ? (

@@ -14,17 +14,26 @@
   "attributes": {
     "title": {
       "type": "string",
+      "default": "Your title should be between 30-60 characters, with a maximum of 90",
+      "maxLength": 90,
       "required": true
     },
     "description": {
       "type": "text",
-      "maxLength": 80,
+      "default": "Your description should be between 55 and 200 characters long, with a maximum of 300",
+      "maxLength": 300,
       "required": true
     },
     "slug": {
       "type": "uid",
       "targetField": "title",
       "required": true
+    },
+    "keywords": {
+      "type": "text",
+      "default": "keywords",
+      "required": true,
+      "regex": "^[a-zA-Z0-9\\s-]+(\\s*,\\s*[a-zA-Z0-9\\s-]+)*$"
     },
     "cover": {
       "type": "media",

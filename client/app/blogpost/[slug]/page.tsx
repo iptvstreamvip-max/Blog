@@ -7,6 +7,7 @@ import { Metadata } from "next";
 import BackButton from "@/components/back-button";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import PricingSection from "@/components/sections/pricing";
+import { Article } from "@/lib/types";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -27,11 +28,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         ? [{ url: `${getStrapiMedia(article.cover.url)}` }]
         : undefined,
     },
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      description: article.description,
+    },
   };
 }
 
 export async function generateStaticParams() {
-  return [];
+  const { data: articles } = (await fetch(
+    `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/articles?fields=slug&pagination[pageSize]=100`,
+    { cache: "force-cache", next: { tags: ["articles"], revalidate: false } }
+  ).then((res) => res.json())) as { data: Article[] };
+
+  return articles.map((article) => ({ slug: article.slug }));
 }
 
 export default async function BlogPostPage({ params }: Props) {

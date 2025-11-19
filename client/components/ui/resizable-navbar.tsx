@@ -129,7 +129,7 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
         <Link
           onMouseEnter={() => setHovered(idx)}
           onClick={onItemClick}
-          className="relative px-4 py-2 text-muted-foreground"
+          className="relative px-4 py-2 text-muted-foreground hover:text-primary transition-colors duration-300"
           key={`link-${idx}`}
           href={item.link}
         >
@@ -277,7 +277,8 @@ export const NavbarButton = <T extends React.ElementType = "a">({
     "px-4 py-2 rounded-md button text-sm font-medium relative cursor-pointer hover:-translate-y-0.5 transition duration-200 inline-block text-center";
 
   const variantStyles = {
-    default: "bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-4 py-2 has-[>svg]:px-3",
+    default:
+      "bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-4 py-2 has-[>svg]:px-3",
     destructive:
       "bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
     outline:
