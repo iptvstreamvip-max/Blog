@@ -21,7 +21,6 @@ const geistMono = Geist_Mono({
 export async function generateMetadata(): Promise<Metadata> {
   const global = await getGlobalData();
   const seo = global.defaultSeo;
-  const faviconUrl = getStrapiMedia(global.favicon.url);
   return {
     title: {
       default: `Home | ${seo.metaTitle}`,
@@ -30,9 +29,9 @@ export async function generateMetadata(): Promise<Metadata> {
     description: seo.metaDescription,
     keywords: seo?.keywords,
     icons: {
-      icon: `${faviconUrl}`,
-      shortcut: `${faviconUrl}`,
-      apple: `${faviconUrl}`,
+      icon: "/favicon.ico",
+      shortcut: "/favicon.ico",
+      apple: "/favicon.ico",
     },
     openGraph: {
       title: seo.metaTitle,
