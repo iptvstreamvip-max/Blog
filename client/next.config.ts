@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'jolly-flame-2138b8d190.media.strapiapp.com',
+        hostname: 'incredible-dog-c247a7aad4.media.strapiapp.com',
       },
     ],
     // Optimize image loading

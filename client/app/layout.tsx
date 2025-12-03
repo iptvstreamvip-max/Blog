@@ -36,7 +36,7 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title: seo.metaTitle,
       description: seo.metaDescription,
-      images: [`${getStrapiMedia(seo.shareImage.url)}`],
+      images: [`${getStrapiMedia(seo.shareImage?.url)}`],
     },
     twitter: {
       card: "summary_large_image",

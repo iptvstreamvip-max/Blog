@@ -488,9 +488,6 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
         maxLength: 300;
       }> &
       Schema.Attribute.DefaultTo<'Your description should be between 55 and 200 characters long, with a maximum of 300'>;
-    keywords: Schema.Attribute.Text &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'keywords'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',

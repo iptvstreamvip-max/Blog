@@ -8,6 +8,7 @@ import BackButton from "@/components/back-button";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import PricingSection from "@/components/sections/pricing";
 import { Article } from "@/lib/types";
+import Image from "next/image";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -108,14 +109,20 @@ export default async function BlogPostPage({ params }: Props) {
             <div className="flex space-x-2 items-center pt-12 border-t border-border mt-12">
               <div className="flex space-x-2 gap-2 items-center ">
                 <div className="relative rounded-full mx-auto w-8 h-8">
-                  <StrapiImage
-                    image={article.author.avatar}
-                    alt="Avatar"
-                    className="rounded-full"
-                  />
+                  {
+                    article.author?.avatar ? (
+                    <StrapiImage
+                      image={article.author.avatar}
+                      alt="Avatar"
+                      className="rounded-full"
+                    />
+                    ) : (
+                        <Image src={"/blank-profile.webp"} alt="Avatar" className="rounded-full" width={32} height={32}/>
+                  )
+                  }
                 </div>
                 <p className="text-sm font-normal text-muted-foreground">
-                  {article.author.name}
+                  {article.author?.name || "Admin"}
                 </p>
               </div>
               <div className="h-5 rounded-lg w-0.5 bg-border" />

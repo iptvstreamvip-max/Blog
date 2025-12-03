@@ -88,7 +88,7 @@ export default async function BlogsPage({ params }: Props) {
                   variant={"outline"}
                   className="self-start px-3 font-bold capitalize"
                 >
-                  {article.category.name}
+                  {article.category?.name || "Uncategorized"}
                 </Badge>
                 <h2 className="capitalize font-bold text-center w-full">
                   {article.title}
